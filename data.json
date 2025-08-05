@@ -1,0 +1,86 @@
+[
+    {
+      "id": 1,
+      "title": "Conference",
+      "startDate": "2025-08-04T00:00:00Z",
+      "endDate": "2025-08-04T23:59:59Z",
+      "allDay": true
+    },
+    {
+      "id": 2,
+      "title": "Conference",
+      "startDate": "2025-08-05T00:00:00Z",
+      "endDate": "2025-08-05T23:59:59Z",
+      "allDay": true
+    },
+    {
+      "id": 3,
+      "title": "Meeting",
+      "startDate": "2025-08-05T10:30:00Z",
+      "endDate": "2025-08-05T12:30:00Z",
+      "allDay": false
+    },
+    {
+      "id": 4,
+      "title": "Lunch",
+      "startDate": "2025-08-05T12:00:00Z",
+      "endDate": "2025-08-05T13:00:00Z",
+      "allDay": false
+    },
+    {
+      "id": 5,
+      "title": "Meeting",
+      "startDate": "2025-08-05T14:30:00Z",
+      "endDate": "2025-08-05T15:30:00Z",
+      "allDay": false
+    },
+    {
+      "id": 6,
+      "title": "Happy Hour",
+      "startDate": "2025-08-05T17:30:00Z",
+      "endDate": "2025-08-05T19:00:00Z",
+      "allDay": false
+    },
+    {
+      "id": 7,
+      "title": "Dinner",
+      "startDate": "2025-08-05T20:00:00Z",
+      "endDate": "2025-08-05T21:30:00Z",
+      "allDay": false
+    },
+    {
+      "id": 8,
+      "title": "Birthday Party",
+      "startDate": "2025-08-06T07:00:00Z",
+      "endDate": "2025-08-06T10:00:00Z",
+      "allDay": false
+    },
+    {
+      "id": 9,
+      "title": "Long Event",
+      "startDate": "2025-08-07T00:00:00Z",
+      "endDate": "2025-08-09T23:59:59Z",
+      "allDay": true
+    },
+    {
+      "id": 10,
+      "title": "Repeating Event",
+      "startDate": "2025-08-09T16:00:00Z",
+      "endDate": "2025-08-09T17:00:00Z",
+      "allDay": false
+    },
+    {
+      "id": 11,
+      "title": "Repeating Event",
+      "startDate": "2025-08-09T16:00:00Z",
+      "endDate": "2025-08-09T17:00:00Z",
+      "allDay": false
+    },
+    {
+      "id": 12,
+      "title": "Repeating Event",
+      "startDate": "2025-08-09T16:00:00Z",
+      "endDate": "2025-08-09T17:00:00Z",
+      "allDay": false
+    }
+  ]

@@ -1,0 +1,161 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#calendar-container {
+    width: 100%;
+    max-width: 800px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.day-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #fafafa;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+
+.day-header:hover {
+    background-color: #f0f0f0;
+}
+
+.day-header .day-of-week {
+    font-weight: 600;
+    color: #333;
+}
+
+.day-header .date {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.event-list {
+    display: none; /* Inicialmente oculto */
+    border-bottom: 1px solid #eee;
+}
+
+.event-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px 20px;
+}
+
+.event-item:last-child {
+    border-bottom: none;
+}
+
+.event-item .time {
+    min-width: 120px;
+    font-size: 0.9em;
+    color: #555;
+    font-weight: 500;
+}
+
+.event-item .event-details {
+    display: flex;
+    align-items: center;
+}
+
+.event-item .bullet {
+    width: 8px;
+    height: 8px;
+    background-color: #007bff;
+    border-radius: 50%;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.event-item .title {
+    font-size: 0.9em;
+    color: #333;
+}
+
+/* Estilo para eventos 'all-day' */
+.all-day .time {
+    color: #007bff;
+    font-weight: 600;
+}
+
+/* Estilo para o estado ativo */
+.day-header.active {
+    background-color: #e6f2ff;
+    border-left: 3px solid #007bff;
+    padding-left: 17px;
+}
+/* Estilos existentes... */
+
+.time-group-header {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.time-group-header:hover {
+    background-color: #fafafa;
+}
+
+.time-group-header.active {
+    background-color: #f0f0f0;
+}
+
+.time-group-header .time {
+    min-width: 120px;
+    font-size: 0.9em;
+    color: #555;
+    font-weight: 500;
+}
+
+.time-group-header .event-details {
+    display: flex;
+    align-items: center;
+}
+
+.time-group-header .bullet {
+    width: 8px;
+    height: 8px;
+    background-color: #007bff;
+    border-radius: 50%;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.time-group-header .title {
+    font-size: 0.9em;
+    color: #333;
+}
+
+.sub-event-list {
+    padding-left: 140px; /* Alinha com os títulos dos eventos */
+    border-bottom: 1px solid #eee;
+}
+
+.sub-event-item {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.sub-event-item .sub-bullet {
+    width: 6px;
+    height: 6px;
+    background-color: #5bc0de;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.sub-event-item .sub-title {
+    font-size: 0.85em;
+    color: #666;
+}
