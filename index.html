@@ -3,13 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agenda</title>
+    <title>Agenda Semanal</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div id="calendar-container">
+    <div class="calendar-wrapper">
+        <div class="month-navigation">
+            <button id="prev-month-btn">« Mês</button>
+            <input type="date" id="date-picker">
+            <button id="next-month-btn">Mês »</button>
         </div>
+
+        <div class="week-navigation">
+            <button id="prev-week-btn">Anterior</button>
+            <h2 id="current-week-range"></h2>
+            <button id="next-week-btn">Próximo</button>
+        </div>
+
+        <div id="calendar-container">
+            </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="script.js"></script>

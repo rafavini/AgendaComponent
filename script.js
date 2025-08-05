@@ -1,28 +1,54 @@
 $(document).ready(function() {
-    // URL simulada do backend
     const backendUrl = 'data.json'; 
+    let allEvents = [];
+    let currentWeekStart = getStartOfWeek(new Date());
 
-    // Função para buscar e renderizar os eventos
-    function fetchAndRenderEvents() {
+    function getStartOfWeek(date) {
+        const d = new Date(date);
+        const day = d.getDay();
+        const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+        d.setDate(diff);
+        d.setHours(0, 0, 0, 0);
+        return d;
+    }
+
+    function fetchAllEvents() {
         $.getJSON(backendUrl, function(events) {
-            const groupedEvents = groupEventsByDayAndHour(events);
-            renderCalendar(groupedEvents);
+            allEvents = events;
+            renderCalendarForWeek();
         });
     }
 
-    // Função para agrupar eventos por dia e, dentro de cada dia, por horário
+    function renderCalendarForWeek() {
+        const weekEnd = new Date(currentWeekStart);
+        weekEnd.setDate(weekEnd.getDate() + 6);
+        weekEnd.setHours(23, 59, 59, 999);
+
+        // Atualiza o texto do cabeçalho
+        const startFormatted = currentWeekStart.toLocaleDateString('pt-BR', { month: 'long', day: 'numeric' });
+        const endFormatted = weekEnd.toLocaleDateString('pt-BR', { month: 'long', day: 'numeric', year: 'numeric' });
+        $('#current-week-range').text(`${startFormatted} - ${endFormatted}`);
+
+        // Filtra os eventos da semana atual
+        const eventsInWeek = allEvents.filter(event => {
+            const eventDate = new Date(event.startDate);
+            return eventDate >= currentWeekStart && eventDate <= weekEnd;
+        });
+
+        const groupedEvents = groupEventsByDayAndHour(eventsInWeek);
+        renderCalendar(groupedEvents);
+    }
+    
+    // As funções de agrupamento e renderização do calendário permanecem as mesmas
     function groupEventsByDayAndHour(events) {
         const groupedByDay = {};
         events.forEach(event => {
             const startDate = new Date(event.startDate);
             const dateKey = startDate.toISOString().split('T')[0];
-            
             if (!groupedByDay[dateKey]) {
                 groupedByDay[dateKey] = {};
             }
-
             const timeKey = event.allDay ? 'allDay' : startDate.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-            
             if (!groupedByDay[dateKey][timeKey]) {
                 groupedByDay[dateKey][timeKey] = [];
             }
@@ -31,13 +57,14 @@ $(document).ready(function() {
         return groupedByDay;
     }
 
-    // Função para renderizar o calendário (modificada)
     function renderCalendar(groupedEvents) {
         const container = $('#calendar-container');
         container.empty();
 
         const sortedDates = Object.keys(groupedEvents).sort();
 
+        // Código para renderizar os dias e eventos, conforme a solução anterior...
+        // ... (todo o código de renderização) ...
         sortedDates.forEach(dateStr => {
             const date = new Date(dateStr + 'T00:00:00Z');
             const dayOfWeek = date.toLocaleDateString('pt-BR', { weekday: 'long' });
@@ -65,17 +92,14 @@ $(document).ready(function() {
                     timeSpan.text(timeKey);
                 }
 
-                // Lógica de agrupamento melhorada
                 const detailsDiv = $('<div>').addClass('event-details');
                 
                 if (eventsAtTime.length > 1) {
-                    // Quando há mais de um evento
                     detailsDiv
                         .append($('<span>').addClass('bullet group-bullet'))
                         .append($('<span>').addClass('title').text(`Grupo de ${eventsAtTime.length} Eventos`))
-                        // .append($('<span>').addClass('indicator').html('&#x25BC;')); // Ícone de seta para baixo
+                        .append($('<span>').addClass('indicator').html('&#x25BC;'));
                 } else {
-                    // Quando há apenas um evento
                     detailsDiv
                         .append($('<span>').addClass('bullet single-bullet'))
                         .append($('<span>').addClass('title').text(eventsAtTime[0].title));
@@ -83,7 +107,6 @@ $(document).ready(function() {
 
                 timeGroupHeader.append(timeSpan).append(detailsDiv);
 
-                // A sub-lista agora é renderizada apenas se houver mais de um evento
                 if (eventsAtTime.length > 1) {
                     const subEventList = $('<div>').addClass('sub-event-list').hide();
                     eventsAtTime.forEach(event => {
@@ -94,7 +117,6 @@ $(document).ready(function() {
                     });
                     eventDayList.append(timeGroupHeader).append(subEventList);
                 } else {
-                    // Adiciona o item único diretamente
                     eventDayList.append(timeGroupHeader);
                 }
             });
@@ -103,26 +125,59 @@ $(document).ready(function() {
             container.append(dayDiv);
         });
 
-        // Evento de clique para mostrar/ocultar a lista de eventos do dia
-        $('.day-header').on('click', function() {
+        if (sortedDates.length === 0) {
+            container.append($('<div>').addClass('no-events').text('Nenhum evento nesta semana.'));
+        }
+
+        $('.day-header').off('click').on('click', function() {
             const eventList = $(this).siblings('.event-list');
             $(this).toggleClass('active');
             eventList.slideToggle('fast');
         });
 
-        // Evento de clique para mostrar/ocultar a sub-lista de eventos com mesmo horário
-        $('.time-group-header').on('click', function() {
+        $('.time-group-header').off('click').on('click', function() {
              const subEventList = $(this).siblings('.sub-event-list');
-             if (subEventList.length > 0) { // Garante que só há clique se houver uma sub-lista
+             if (subEventList.length > 0) {
                  $(this).toggleClass('active');
                  subEventList.slideToggle('fast');
              }
         });
 
-        // Oculta todas as listas de eventos no início
         $('.event-list, .sub-event-list').hide();
     }
+    
+    // Adiciona os eventos de clique nos botões de navegação
+    $('#prev-week-btn').on('click', function() {
+        currentWeekStart.setDate(currentWeekStart.getDate() - 7);
+        renderCalendarForWeek();
+    });
 
-    // Inicia a renderização
-    fetchAndRenderEvents();
+    $('#next-week-btn').on('click', function() {
+        currentWeekStart.setDate(currentWeekStart.getDate() + 7);
+        renderCalendarForWeek();
+    });
+
+    // --- NOVOS EVENTOS DE NAVEGAÇÃO ---
+    // Navegação por mês
+    $('#prev-month-btn').on('click', function() {
+        currentWeekStart.setMonth(currentWeekStart.getMonth() - 1);
+        renderCalendarForWeek();
+    });
+
+    $('#next-month-btn').on('click', function() {
+        currentWeekStart.setMonth(currentWeekStart.getMonth() + 1);
+        renderCalendarForWeek();
+    });
+
+    // Seletor de data (Date Picker)
+    $('#date-picker').on('change', function() {
+        const selectedDate = new Date($(this).val());
+        if (selectedDate instanceof Date && !isNaN(selectedDate)) {
+            currentWeekStart = getStartOfWeek(selectedDate);
+            renderCalendarForWeek();
+        }
+    });
+
+    // Inicia a aplicação buscando todos os eventos
+    fetchAllEvents();
 });

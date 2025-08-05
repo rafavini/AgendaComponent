@@ -1,10 +1,53 @@
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background-color: #f9f9f9;
-    margin: 0;
-    padding: 20px;
+
+.calendar-wrapper {
+    width: 100%;
+    max-width: 800px;
+}
+
+.month-navigation, .week-navigation {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.week-navigation {
+    background-color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.month-navigation {
+    margin-bottom: 20px;
+}
+
+.month-navigation button, .week-navigation button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.month-navigation button:hover, .week-navigation button:hover {
+    background-color: #0056b3;
+}
+
+#current-week-range {
+    font-size: 1.2em;
+    color: #333;
+    font-weight: 600;
+}
+
+#date-picker {
+    font-size: 1em;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
 }
 
 #calendar-container {
@@ -15,6 +58,17 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
+#calendar-container {
+    width: 100%;
+    max-width: 800px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* O restante do CSS permanece o mesmo... */
+
 
 .day-header {
     display: flex;
@@ -159,3 +213,4 @@ body {
     font-size: 0.85em;
     color: #666;
 }
+
